@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"*.po": "html",
+		"utf8iterator.h": "c",
+		"queue.h": "c"
+	}
+}
