@@ -43,7 +43,7 @@ enum AnsiColors {
 struct TIState;
 typedef struct TIState TIState;
 
-struct TIState* TI_init(bool use_utf8, bool add_key_events);
+struct TIState* TI_init(bool use_utf8);
 
 void TI_free(struct TIState* self);
 

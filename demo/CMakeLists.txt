@@ -7,5 +7,5 @@ add_executable(TerminalInterface_demo
 	"main.c"
 )
 
-target_link_libraries(TerminalInterface_demo PUBLIC TerminalInterface_shared)
+target_link_libraries(TerminalInterface_demo PUBLIC TerminalInterface_static)
 target_include_directories(TerminalInterface_demo PUBLIC "${PROJECT_SOURCE_DIR}/../TerminalInterface/")

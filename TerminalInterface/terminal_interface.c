@@ -37,8 +37,6 @@ struct TIState {
 	uint8_t tmp_input_len;
 	/*if false it will only print extended ascii but still encoded using utf8, it will also supply input in extended ascii*/
 	bool use_utf8;
-	//If false it wont add key down and key up events and will only add char events
-	bool add_key_events;
 };
 
 void set_real_cursor_pos(int x, int y);
@@ -61,7 +59,7 @@ int color_to_ansi(TermColor term_color);
 TICharInfo* TI_get_char_info_safe(TIState* self, TICharInfo* buffer, uint16_t cursor_x, uint16_t cursor_y);
 
 
-TIState* TI_init(bool use_utf8, bool add_key_events) {
+TIState* TI_init(bool use_utf8) {
 	TIState* self = calloc(1, sizeof(TIState));
 	if (self == NULL) {
 		return NULL;
@@ -77,7 +75,6 @@ TIState* TI_init(bool use_utf8, bool add_key_events) {
 	self->tmp_input_len = 0;
 
 	self->use_utf8 = use_utf8;
-	self->add_key_events = add_key_events;
 
 	terminal2_setup();
 
