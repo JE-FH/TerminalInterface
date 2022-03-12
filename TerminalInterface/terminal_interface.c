@@ -44,6 +44,7 @@ void set_real_text_color(TermColor color);
 void set_real_back_color(TermColor color);
 bool TI_get_real_cursor_pos(TIState* self, int* x, int* y);
 void TI_read_remaining_input(TIState* self);
+void TI_read_remaining_input_once(TIState* self);
 void TI_try_decode_tmp_input(TIState* self);
 
 /*out should have enough space for 4 chars or test len with null out*/
@@ -257,11 +258,11 @@ uint32_t TI_read_key(struct TIState* self) {
 	terminal2_enable_blocking();
 
 	while (true) {
-		TI_read_remaining_input(self);
 		uint32_t next_char;
 		if (Queue_dequeue(&self->input_buffer, &next_char)) {
 			return next_char;
 		}
+		TI_read_remaining_input_once(self);
 	}
 	
 	terminal2_disable_blocking();
@@ -347,6 +348,18 @@ bool TI_get_real_cursor_pos(TIState* self, int* x, int* y) {
 
 	//If res is not 2, then we could not read the cursor pos
 	return res == 2;
+}
+
+void TI_read_remaining_input_once(TIState* self) {
+	char c;
+	terminal2_read_input(&c);
+	if (self->tmp_input_len >= sizeof(self->tmp_input)) {
+		//TODO: Here some kind of error callback must happen so that this library can be relied on to not exit your application
+		printf("nej nej nej\n");
+		exit(1);
+	}
+	self->tmp_input[self->tmp_input_len++] = c;
+	TI_try_decode_tmp_input(self);
 }
 
 void TI_read_remaining_input(TIState* self) {

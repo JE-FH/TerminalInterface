@@ -1,2 +1,4 @@
 extlibs/
 build/
+.vs/
+.vscode/
