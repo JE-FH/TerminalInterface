@@ -17,4 +17,9 @@ add_library(TerminalInterface_static STATIC $<TARGET_OBJECTS:TerminalInterface_o
 add_library(TerminalInterface_shared SHARED $<TARGET_OBJECTS:TerminalInterface_object>)
 
 target_link_libraries(TerminalInterface_static PRIVATE utf8proc)
+
+target_include_directories(TerminalInterface_static PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
 target_link_libraries(TerminalInterface_shared PRIVATE utf8proc)
+
+target_include_directories(TerminalInterface_shared PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
