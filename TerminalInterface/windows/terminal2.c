@@ -189,7 +189,10 @@ bool terminal2_read_input(char* out) {
 		}
 	}
 
-	ReadConsoleInput(hStdin, &input_record, 1, &number_read);
+	input_record.EventType = 0;
+	while (input_record.EventType != KEY_EVENT) {
+		ReadConsoleInput(hStdin, &input_record, 1, &number_read);
+	}
 
 	char utf8encoded[4];
 	int encoded_len = encode_to_utf8(input_record.Event.KeyEvent.uChar.UnicodeChar, utf8encoded);
