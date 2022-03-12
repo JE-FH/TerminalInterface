@@ -9,6 +9,8 @@ add_library(TerminalInterface_object OBJECT
 	"terminal_interface.h"
 )
 
+target_link_libraries(TerminalInterface_object PRIVATE utf8proc)
+
 set_property(TARGET TerminalInterface_object PROPERTY POSITION_INDEPENDENT_CODE 1)
 
 target_include_directories(TerminalInterface_object PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
